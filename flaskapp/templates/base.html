@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Status Manager</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/bulma.css">
+    <script src="../static/base.js" defer></script>
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+        <nav class="hero-head">
+            <nav class="navbar" role="navigation">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="/">
+                            <h3 class="title">Project Status Manager</h3>
+                            <!--<a class="navbar-item" href="/">-->
+<!--                                <img src="client logo goes here" alt="Logo">-->
+<!--                            </a>-->
+                        </a>
+                        <a id="burger" class="navbar-burger" >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </div>
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.index') }}" class="navbar-item">
+                            Home
+                            </a>
+                            {% if current_user.is_authenticated %}
+                            {% if session.get('role')=='Admin' %}
+                            <a href="{{ url_for('auth.admin') }}" class="navbar-item">admin</a>
+                            <a href="{{ url_for('auth.addUser') }}" class="navbar-item">Add User</a>
+                            {% endif %}
+                            <a href="{{ url_for('main.add_feedback') }}" class="navbar-item">add feedback
+                            </a>
+                            <a href="{{ url_for('auth.assignProject') }}" class="navbar-item">Assign Project
+                            </a>
+                            {% if session.get('role') in 'Admin or ProjectManager' %}
+                            <a href="{{ url_for('main.create_project') }}" class="navbar-item">Create Project</a>
+                            <a href="{{ url_for('auth.project_details') }}" class="navbar-item">Manage Projects</a>
+                            {% endif %}
+                            {% endif %}
+                            {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">Login
+                            </a>
+                            <a href="{{ url_for('auth.signup') }}" class="navbar-item">Sign Up
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout
+                            </a>
+                            {% endif %}
+                        </div>
+                        </div>
+                </nav>
+            </nav>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

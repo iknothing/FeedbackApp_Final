@@ -1,0 +1,10 @@
+select,textarea{
+display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;}
+
+body{
+background-color: #5cdb94;
+}

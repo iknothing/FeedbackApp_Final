@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-7 is-offset-2">
+    <div class="box">
+        <div class="field">
+            <div class="control">
+        <button class="button is-block is-info is-large is-fullwidth" onclick="location.href='{{ url_for('main.create_project') }}'">Create a New Project</button>
+            </div>
+        </div>
+        <h3 class="title has-text-grey">Your Projects:</h3>
+        {% for project in projectList %}
+        <div class="field">
+            <div class="control">
+                <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th><button class="button is-block is-info is-large is-fullwidth"  onclick="location.href='/project_details/{{project.projectNo}}'">{{ project.projectNo }}</button></th>
+                            <th><button class="button is-block is-info is-large is-fullwidth"  onclick="location.href='/editproject/{{project.projectNo}}'">edit</button></th>
+                            <th><button class="button is-block is-info is-large is-fullwidth"  onclick="location.href='/stepStatus/{{project.projectNo}}'">update Step status</button></th>
+                            <th><form action="/deleteProject/{{project.projectNo}}" method="post">
+                                <button class="button is-block  is-large is-fullwidth " onclick="confirmdelete()">X</button></form></th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+                <script>function confirmdelete() {let confirmAction = confirm("Are you sure you want to delete the project?");
+                if (confirmAction) {
+          alert("Project deleted successfully");
+        } else {
+          alert("Action canceled by user");
+        }}</script>
+
+<!--        <button class="button is-block is-info is-large"  onclick="location.href='/project_details/{{project.projectNo}}'">{{ project.projectNo }}</button>-->
+<!--            <button class="button" onclick="location.href='/deleteProject/{{project.projectNo}}'">X</button>-->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+<!--<div class="column is-4 is-offset-4">-->
+<!--    <div class="box">-->
+<!--      <ul style="font-size:36px;" id="projectlist">-->
+<!--        <li><a href="{{ url_for('main.create_project') }}">Create Project</a></li>-->
+<!--        {% for project in projectList %}-->
+<!--        <li class="projectListitem">-->
+<!--          <a href="{{ url_for('auth.project_details', projectNo=project.projectNo) }}">-->
+<!--            {{ project.projectNo }}-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        {% endfor %}-->
+<!--      </ul>-->
+
+<!--    </div>-->
+<!--</div>-->

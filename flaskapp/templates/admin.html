@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+function passwordToggle() {
+  x = document.getElementsByName("passwordt");
+  for(var i=0;i<x.length;i++) {
+  if (x[i].type === "password") {
+    x[i].type = "text";
+  } else {
+    x[i].type = "password";
+  }
+  }
+}
+</script>
+<div class="column is-200 is-offset-0">
+    <div class="box">
+        <div class="field">
+            <div class="control">
+                <div class="table-container">
+                    <table class="table">
+                        <tbody>
+                        <td class="has-text-centered">
+                            <button class="button is-block is-info is-large" onclick="location.href='{{ url_for('auth.addUser') }}'">Add User</button>
+                        </td>
+                        <td class="has-text-centered">
+                            <button class="button is-block is-info is-large" onclick="location.href='{{ url_for('auth.assignProject') }}'">Assign Project</button>
+                        </td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <h3>APPROVE PROJECTS</h3>
+        {% for project in project%}
+        <div class="field">
+            <div class="control">
+                <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Project No</th>
+                            <th>Project Coordinator</th>
+                            <th>Project start date</th>
+                            <th>Users assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{project.projectNo}}</td>
+                            <td>{{project.projectCoordinator}}</td>
+                            <td>{{project.projectStart}}</td>
+                            <td>{{project.usersAssigned}}</td>
+                            <td><form action="/approveProject/{{project.projectNo}}" method="post">
+                                <button class="button">approve</button></form></td>
+                            <td><form action="/rejectProject/{{project.projectNo}}" method="post">
+                                <button class="button">reject</button></form></td>
+                        </tr>
+                    </tbody>
+</table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="column is-200 is-offset-0">
+    <div class="box">
+        <h3>USERS IN DATABASE</h3>
+        {% for user in user%}
+        <div class="field">
+            <div class="control">
+                <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth ">
+                    <thead>
+                        <tr>
+                            <th>User id</th>
+                            <th>User active</th>
+                            <th>User Email</th>
+                            <th>User password</th>
+                            <th>email confirmation at</th>
+                            <th>User type</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.active}}</td>
+                            <td>{{ user.email }}</td>
+                            <td><input class='input' type="password" value="{{user.password}}" name="passwordt" readonly></td>
+                            <td>{{ user.email_confirmed_at}}</td>
+                            <td>{{ user.type}}</td>
+                            {%if user.type == "Employee" or user.type == "ProjectManager"%}
+                            <td><form action="/deleteUser/{{user.id}}" method="post">
+                                <button class="button is-block  is-large is-fullwidth ">X</button></form></td>
+                            {%endif%}
+                        </tr>
+                    </tbody>
+</table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <button class="button" onclick="passwordToggle()">Show Passwords</button>
+    </div>
+</div>
+{% endblock %}

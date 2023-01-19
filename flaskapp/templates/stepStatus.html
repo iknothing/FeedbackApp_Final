@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-100 is-offset-1">
+    <div class="box">
+        {% for step in steps%}
+        <div class="field">
+            <div class="control">
+                <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Step Name</th>
+                            <th>Step start</th>
+                            <th>Step end</th>
+                            <th>Step status</th>
+                            <th>Actual step completion date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ step.stepName }}</td>
+                            <td>{{ step.stepStart }}</td>
+                            <td>{{ step.stepEnd }}</td>
+                            <td>{{ step.stepStatus }}</td>
+                            <td>{{ step.stepActualCompletion }}</td>
+                        </tr>
+                    </tbody>
+</table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="column is-50 is-offset-1">
+    <div class="box">
+        <form action="/stepStatus_post/{{projectNo}}" method="post">
+            <h3 class="title has-text-grey">Update Project Step Status</h3>
+            {% for step in steps%}
+            <div class="field">
+                <div class="control">
+            <select name="stepIndex">
+                <option value="{{step.index}}">{{step.stepName}}</option>
+            </select>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+            <select name="stepStatus">
+                <option value="NOTSTART">Not Started</option>
+                <option value="INP">In Progress</option>
+                <option value="COMP">Completed</option>
+            </select>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

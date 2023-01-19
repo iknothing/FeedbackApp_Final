@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}</a>.
+        </div>
+        {% endif %}
+        {% endwith %}
+<h1 class="title">
+  Welcome to Project status manager
+</h1>
+<h2 class="subtitle">
+  please login from top right corner  to access your  project
+</h2>
+{% endblock %}

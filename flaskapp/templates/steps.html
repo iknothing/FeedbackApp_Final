@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <font size="+5">Details of steps in your project</font>
+<form method="POST" action="/steps/{{projectNo}}/{{stepCount}}">
+    {%for i in range(1, stepCount+1)%}
+    <font size="+2">Details of step{{i}}</font>
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="text" name="stepName{{i}}" placeholder="Name of step {{i}} of project" autofocus="">
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="number" name="stepDays{{i}}" placeholder="Number of days in step {{i}} of project" autofocus="">
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <h3 text-align="left">start date of step {{i}} of project</h3>
+            <input class="input is-large" type="date" name="stepStart{{i}}" placeholder="start date of step {{i}} of project" autofocus="">
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <h3>end date of step {{i}} of project</h3>
+            <input class="input is-large" type="date" name="stepEnd{{i}}" placeholder="end date of step {{i}} of project" autofocus="">
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="text" name="stepStatus{{i}}" placeholder="status of step {{i}} of project(COMP/INP)" autofocus="">
+        </div>
+    </div>
+    {%endfor%}
+    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-20 is-offset-1">
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}. Go to <a href="{{ url_for('main.create_project') }}">project</a>.
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/editProject/{{project.projectNo}}" enctype="multipart/form-data">
+            <h3 class="title has-text-grey">Enter Updated project details for Project {{project.projectNo}}</h3>
+            <div class="field">
+                <div class="control">
+                    <h3>Customers name</h3>
+                    <input class="input is-large"  name="customerName" placeholder="customer's name" autofocus="">
+                    </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>buyer's name</h3>
+                    <input class="input is-large"  name="buyerName" placeholder="buyer's name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>project coordinator's name</h3>
+                    <input class="input is-large"  name="projectCoordinator" placeholder="project coordinator's name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Project Start Date</h3>
+                    <input class="input is-large" type="date" name="projectStart" placeholder="project start date" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Project End Date</h3>
+                    <input class="input is-large" type="date" name="dispatchDate" placeholder="project end date" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Purchase Order Quantity</h3>
+                    <input class="input is-large" type="number" name="poQty" placeholder="Purchase Order Quantity" autofocus="">
+
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>part's name</h3>
+                    <input class="input is-large"  name="partName" placeholder="parts's Name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>part Number </h3>
+                    <input class="input is-large"  name="partNo" placeholder="part's No" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>STEPS in project</h3>
+                    <input class="input is-large" type="number" name=stepCount placeholder="Number of steps in project" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Product Image</h3>
+                    <input class="input is-large" type="file" name="partImage" placeholder="Please upload Product Image" autofocus="" accept=".jpg,jpeg,.png,.gif">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Create Project</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

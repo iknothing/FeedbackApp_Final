@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="../static/jquery.min.js"></script>
+<link rel="stylesheet" href="../static/choices.min.css">
+<script src="../static/choices.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+     var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+        removeItemButton: true,
+        maxItemCount:5,
+        searchResultLimit:5,
+        renderChoiceLimit:5
+      });
+    });
+</script>
+<div class="column is-10 is-offset-1">
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}. Go to <a href="{{ url_for('auth.project_details') }}">project</a>.
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/createProject" enctype="multipart/form-data">
+            <H1 class="title">Enter Project Details</H1>
+            <div class="field">
+                <div class="control">
+                    <h3>Project number</h3>
+                    <select name="projectNo" id="projectNo" class="input is-large">
+                    {% for project in projects %}
+                        <option value="{{ project.projectNo }}">{{ project.projectNo }}</option>
+                    {% endfor %}
+                    </select>
+                    </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Customers name</h3>
+                    <input class="input is-large"  name="customerName" placeholder="customer's name" autofocus="">
+                    </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>buyer's name</h3>
+                    <input class="input is-large"  name="buyerName" placeholder="buyer's name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>project coordinator's name</h3>
+                    <input class="input is-large"  name="projectCoordinator" placeholder="project coordinator's name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Project Start Date</h3>
+                    <input class="input is-large" type="date" name="projectStart" placeholder="project start date" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Project End Date</h3>
+                    <input class="input is-large" type="date" name="dispatchDate" placeholder="project end date" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Purchase Order Quantity</h3>
+                    <input class="input is-large" type="number" name="poQty" placeholder="Purchase Order Quantity" autofocus="">
+
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <h3>part's name</h3>
+                    <input class="input is-large"  name="partName" placeholder="parts's Name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>part Number </h3>
+                    <input class="input is-large"  name="partNo" placeholder="part's No" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>STEPS in project</h3>
+                    <input class="input is-large" type="number" name=stepCount placeholder="Number of steps in project" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>Product Image</h3>
+                    <input class="input is-large" type="file" name="partImage" placeholder="Please upload Product Image" autofocus="" accept=".jpg,jpeg,.png,.gif">
+                </div>
+            </div>
+<div class="row d-flex justify-content-center mt-100">
+    <div class="col-md-6">
+        <select id="choices-multiple-remove-button" name="employee[]" placeholder="Select employee" multiple>
+                        {% for employee in employees %}
+                        <option value="{{ employee.id }}">{{ employee.email }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Create Project</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

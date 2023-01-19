@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="column is-7 is-offset-3">
+    <div class="box">
+        {% if message%}
+        <p class="message">{{message|safe}}</p>
+        {%endif%}
+        <form method="POST" action="/feedback"  enctype="multipart/form-data">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="projectNo" placeholder="Project Number" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="email" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="password" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="Date" name="curDate" placeholder="Date of task completion" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <select name="role">
+                    <option value="Admin">Admin</option>
+                    <option value="ProjectManager">Project Manager</option>
+                    <option value="Employee">Employee</option>
+                </select>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <textarea  name="remarks" placeholder="Enter the changes/remarks/status updates of the project" rows="10" cols="70" autofocus=""></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <h3>please add feedback image</h3>
+                    <input class="input is-large" type="file" name="feedbackImage" placeholder="please add feedback image" autofocus="" accept=".jpg,jpeg,.png,.gif">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
