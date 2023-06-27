@@ -31,3 +31,7 @@ def create_project():
 @access_required('Admin or ProjectManager')
 def steps():
     return render_template('steps.html')
+from flaskapp import app
+
+if __name__ == '__main__':
+    app.run(debug=True)
