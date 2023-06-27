@@ -1,6 +1,6 @@
 # Feedback-App 
 # created by manas chachra for yash infotech internship
-# you can now  access  the   website at https://feedbackapp-manas.azurewebsites.net/
+# you can now  access  the   website at https://feedbackapp-manas.azurewebsites.net/login
 # Technology used:
 - Python Flask
 - mailtrap.io
