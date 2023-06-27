@@ -20,7 +20,6 @@ def create_app():
 
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'user.db')
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
     db.init_app(app)
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
