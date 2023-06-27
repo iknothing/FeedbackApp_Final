@@ -10,7 +10,8 @@
 - sqlalchemy
 - sqlite3
 
-#defualt login
+#default login
+#Note:the  following credentials  are only created once  u access the  signup page   of the  website.unless u do that  you wont   be abel to access the admin dashboard
 - email:
 ```
 admin@example.com
