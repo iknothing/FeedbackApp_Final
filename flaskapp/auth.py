@@ -1,5 +1,5 @@
 import openpyxl
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session,send_file
 from openpyxl.reader.excel import load_workbook
 from openpyxl.styles import Alignment, Border, PatternFill, Side, Font
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -502,6 +502,18 @@ def project_details():
 @access_required('Admin or ProjectManager')
 def project_details1(projectNo):
     return render_template('project_details1.html',basedirauth=basedirauth,feedback=Feedback.query.filter_by(projectNo=projectNo).all())
+
+@auth.route('/downloadWorksheet/<projectNo>', methods=['POST', 'GET'])
+@login_required
+@access_required('Admin or ProjectManager')
+def downloadWorksheet(projectNo):
+    file_path = os.path.join(basedirauth, 'worksheets', projectNo + '.xlsx')
+
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        flash('File not found')
+        return render_template('project_details.html',projectList=Project.query.all())
 
 @auth.route('/updatefeedback/<projectNo>',methods=['POST','GET'])
 @login_required
